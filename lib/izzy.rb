@@ -1,5 +1,3 @@
-require "izzy/version"
-
 class Object
   METHOD_CHECK = -> method { "is_#{method}?".to_sym.tap { |m| self.respond_to?(m) && self.send(m) }}
 
