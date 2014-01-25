@@ -5,6 +5,8 @@ Monkey patch to object to make for a nicer time of conditionals!
 Let's take our class, Person:
 
 ```ruby
+require 'izzy'
+
 class Person
   def initialize(name, age, sex)
     @name = name
@@ -72,7 +74,7 @@ It patches object, just use it with any method that matches the pattern is_foo? 
 
 ## Contributing
 
-1. Fork it ( http://github.com/<my-github-username>/izzy/fork )
+1. Fork it ( http://github.com/izzy/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
