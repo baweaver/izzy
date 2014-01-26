@@ -16,27 +16,27 @@ class Person
     @sex  = sex
   end
 
-  def is_older_than_18?
+  def older_than_18?
     @age > 18
   end
 
-  def is_younger_than_18?
+  def younger_than_18?
     @age < 18
   end
 
-  def is_male?
+  def male?
     @sex == 'm'
   end
 
-  def is_female?
+  def female?
     @sex == 'f'
   end
 
-  def is_me?
+  def me?
     @name == 'brandon' && @sex == 'm'
   end
 
-  def is_geek?
+  def geek?
     @name == 'brandon'
   end
 end
