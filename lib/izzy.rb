@@ -1,17 +1,15 @@
-require "izzy/version"
+require 'izzy/version'
 
 class Object
-  METHOD_CHECK = -> method { "is_#{method}?".to_sym.tap { |m| self.respond_to?(m) && self.send(m) }}
-
-  def is_all_of(*methods)
-    methods.all?(&METHOD_CHECK)
+  def all_of?(*methods)
+    methods.all? { |method| (m = "is_#{method}?".to_sym) && self.respond_to?(m) && self.send(m) }
   end
 
-  def is_any_of(*methods)
-    methods.any?(&METHOD_CHECK)
+  def any_of?(*methods)
+    methods.any? { |method| (m = "is_#{method}?".to_sym) && self.respond_to?(m) && self.send(m) }
   end
 
-  def is_none_of(*methods)
-    methods.none?(&METHOD_CHECK)
+  def none_of?(*methods)
+    methods.none? { |method| (m = "is_#{method}?".to_sym) && self.respond_to?(m) && self.send(m) }
   end
 end
