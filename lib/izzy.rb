@@ -2,14 +2,14 @@ require 'izzy/version'
 
 module Izzy
   def all_of?(*methods)
-    methods.all? { |method| (m = "#{method}?".to_sym) && self.respond_to?(m) && self.send(m) }
+    methods.all? { |m| respond_to?(m) && send(m) }
   end
 
   def any_of?(*methods)
-    methods.any? { |method| (m = "#{method}?".to_sym) && self.respond_to?(m) && self.send(m) }
+    methods.any? { |m| respond_to?(m) && send(m) }
   end
 
   def none_of?(*methods)
-    methods.none? { |method| (m = "#{method}?".to_sym) && self.respond_to?(m) && self.send(m) }
+    methods.none? { |m| respond_to?(m) && send(m) }
   end
 end
