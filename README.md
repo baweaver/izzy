@@ -10,6 +10,8 @@ Let's take our class, Person:
 
 ```ruby
 class Person
+  include Izzy # Make sure to include Izzy!
+
   def initialize(name, age, sex)
     @name = name
     @age  = age
@@ -54,7 +56,7 @@ brandon.none_of?(:younger_than_18, :female) # => true
 brandon.any_of?(:male, :female, :geek) # => true
 ```
 
-Simple to the point, no more mess of && or || checks for the same object.
+Simple to the point, no more mess of && or || checks for the same object. All you have to do is include Izzy in your object and you're ready to go!
 
 ## Installation
 

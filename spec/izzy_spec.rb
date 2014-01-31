@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 class Person
+  include Izzy
+
   def initialize(name, age, sex)
     @name = name
     @age  = age

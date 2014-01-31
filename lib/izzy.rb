@@ -1,6 +1,6 @@
 require 'izzy/version'
 
-class Object
+module Izzy
   def all_of?(*methods)
     methods.all? { |method| (m = "#{method}?".to_sym) && self.respond_to?(m) && self.send(m) }
   end
