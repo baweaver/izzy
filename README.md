@@ -11,6 +11,7 @@ Let's take our class, Person:
 ```ruby
 class Person
   include Izzy # Make sure to include Izzy!
+  attr_reader :name, :age, :sex
 
   def initialize(name, age, sex)
     @name = name
@@ -55,6 +56,14 @@ brandon.all_of?(:older_than_18, :male, :me, :geek) # => true
 brandon.none_of?(:younger_than_18, :female) # => true
 brandon.any_of?(:male, :female, :geek) # => true
 ```
+
+Maybe boolean comparisons aren't your cup of tea. Izzy has you covered my friend:
+```ruby
+brandon.matches_all?  name: /^br/, age: (20..30) # => true
+brandon.matches_any?  name: /br$/, age: (20..30) # => true
+brandon.matches_none? name: /br&/, age: (30..40) # => true
+```
+Izzy compares on === much like a case statement, allowing you to regex and range away! You can even do type checks while you're at it.
 
 Simple to the point, no more mess of && or || checks for the same object. All you have to do is include Izzy in your object and you're ready to go!
 

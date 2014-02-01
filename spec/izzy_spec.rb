@@ -3,6 +3,8 @@ require 'spec_helper'
 class Person
   include Izzy
 
+  attr_reader :name, :age, :sex
+
   def initialize(name, age, sex)
     @name = name
     @age  = age
@@ -64,6 +66,48 @@ describe 'Person' do
 
     it 'returns false if Person matches any of the conditions' do
       expect(@person.none_of? :older_than_18, :female, :geek).to be_false
+    end
+  end
+
+  describe '#matches_all?' do
+    it 'returns true if Person matches all of the conditions' do
+      expect(
+        @person.matches_all?(name: /br/, age: (20..30))
+      ).to be_true
+    end
+
+    it 'returns false if Person does not match all conditions' do
+      expect(
+        @person.matches_all?(name: /br/, age: (25..30))
+      ).to be_false
+    end
+  end
+
+  describe '#matches_any?' do
+    it 'returns true if Person matches all of the conditions' do
+      expect(
+        @person.matches_any?(name: /br/, age: (25..30))
+      ).to be_true
+    end
+
+    it 'returns false if Person does not match any conditions' do
+      expect(
+        @person.matches_any?(name: /br$/, age: (25..30))
+      ).to be_false
+    end
+  end
+
+  describe '#matches_none?' do
+    it 'returns true if Person matches all of the conditions' do
+      expect(
+        @person.matches_none?(name: /br$/, age: (25..30))
+      ).to be_true
+    end
+
+    it 'returns false if Person does not match any conditions' do
+      expect(
+        @person.matches_none?(name: /br/, age: (25..30))
+      ).to be_false
     end
   end
 end
