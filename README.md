@@ -1,6 +1,7 @@
 # Izzy
 
 [![Build Status](https://travis-ci.org/baweaver/izzy.png?branch=master)](https://travis-ci.org/baweaver/izzy)
+[![Code Climate](https://codeclimate.com/github/baweaver/izzy.png)](https://codeclimate.com/github/baweaver/izzy)
 [![Coverage Status](https://coveralls.io/repos/baweaver/izzy/badge.png?branch=master)](https://coveralls.io/r/baweaver/izzy?branch=master)
 
 Monkey patch to object to make for a nicer time of conditionals! Just install the gem and you're ready to go!
@@ -52,9 +53,9 @@ brandon = Person.new('brandon', 23, 'm')
 
 ...and do some comparisons!
 ```ruby
-brandon.all_of?(:older_than_18, :male, :me, :geek) # => true
-brandon.none_of?(:younger_than_18, :female) # => true
-brandon.any_of?(:male, :female, :geek) # => true
+brandon.all_of?  :older_than_18, :male, :me, :geek # => true
+brandon.none_of? :younger_than_18, :female         # => true
+brandon.any_of?  :male, :female, :geek             # => true
 ```
 
 Maybe boolean comparisons aren't your cup of tea. Izzy has you covered my friend:
@@ -64,6 +65,32 @@ brandon.matches_any?  name: /br$/, age: (20..30) # => true
 brandon.matches_none? name: /br&/, age: (30..40) # => true
 ```
 Izzy compares on === much like a case statement, allowing you to regex and range away! You can even do type checks while you're at it.
+
+```ruby
+brandon.matches_all? name: String, age: Integer
+```
+
+Why stop there? Need a bit more power? We have Lambdas for that!
+
+```ruby
+brandon.matches_all? name: -> n { n.length > 3 }, age: -> a { a.odd? } # => true
+```
+
+....or let's push it further for some interesting results:
+
+```ruby
+brandon.matches_all?(
+  name: [
+    /br/, /an/, -> n { n.length > 5 }
+  ],
+  age: [
+    (20..30), -> a { a > 20 }
+  ]
+)
+
+# => true
+
+```
 
 Simple to the point, no more mess of && or || checks for the same object. All you have to do is include Izzy in your object and you're ready to go!
 

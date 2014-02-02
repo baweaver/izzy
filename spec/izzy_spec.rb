@@ -41,31 +41,31 @@ describe 'Person' do
 
   describe '#all_of?' do
     it 'returns true if Person matches all of the conditions' do
-      expect(@person.all_of? :older_than_18, :male, :geek).to be_true
+      expect(@person.all_of? :older_than_18?, :male?, :geek?).to be_true
     end
 
     it 'returns false if Person does not match all of the conditions' do
-      expect(@person.all_of? :younger_than_18, :male).to be_false
+      expect(@person.all_of? :younger_than_18, :male?).to be_false
     end
   end
 
   describe '#any_of?' do
     it 'returns true if Person matches any of the conditions' do
-      expect(@person.any_of? :older_than_18, :female, :geek).to be_true
+      expect(@person.any_of? :older_than_18?, :female?, :geek?).to be_true
     end
 
     it 'returns false if Person matches none of the conditions' do
-      expect(@person.any_of? :younger_than_18, :female).to be_false
+      expect(@person.any_of? :younger_than_18, :female?).to be_false
     end
   end
 
   describe '#none_of?' do
     it 'returns true if Person matches none of the conditions' do
-      expect(@person.none_of? :younger_than_18, :female).to be_true
+      expect(@person.none_of? :younger_than_18, :female?).to be_true
     end
 
     it 'returns false if Person matches any of the conditions' do
-      expect(@person.none_of? :older_than_18, :female, :geek).to be_false
+      expect(@person.none_of? :older_than_18?, :female?, :geek?).to be_false
     end
   end
 
@@ -73,6 +73,15 @@ describe 'Person' do
     it 'returns true if Person matches all of the conditions' do
       expect(
         @person.matches_all?(name: /br/, age: (20..30))
+      ).to be_true
+    end
+
+    it 'returns true for multiple conditionals' do
+      expect(
+        @person.matches_all?(
+          name: [/br/, /an/],
+          age: [(20..30), -> a { a < 30 }]
+        )
       ).to be_true
     end
 
@@ -90,6 +99,16 @@ describe 'Person' do
       ).to be_true
     end
 
+    it 'returns true for multiple conditionals' do
+      expect(
+        @person.matches_any?(
+          name: [/br/, /an/],
+          age: [(30..40), -> a { a > 30 }]
+        )
+      ).to be_true
+    end
+
+
     it 'returns false if Person does not match any conditions' do
       expect(
         @person.matches_any?(name: /br$/, age: (25..30))
@@ -98,13 +117,22 @@ describe 'Person' do
   end
 
   describe '#matches_none?' do
-    it 'returns true if Person matches all of the conditions' do
+    it 'returns true if Person matches none of the conditions' do
       expect(
         @person.matches_none?(name: /br$/, age: (25..30))
       ).to be_true
     end
 
-    it 'returns false if Person does not match any conditions' do
+    it 'returns true for multiple conditionals' do
+      expect(
+        @person.matches_none?(
+          name: [/br$/, /foo/],
+          age: [(30..40), -> a { a > 30 }]
+        )
+      ).to be_true
+    end
+
+    it 'returns false if Person matches any of the conditions' do
       expect(
         @person.matches_none?(name: /br/, age: (25..30))
       ).to be_false
