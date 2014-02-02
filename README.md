@@ -53,9 +53,9 @@ brandon = Person.new('brandon', 23, 'm')
 
 ...and do some comparisons!
 ```ruby
-brandon.all_of?  :older_than_18, :male, :me, :geek # => true
-brandon.none_of? :younger_than_18, :female         # => true
-brandon.any_of?  :male, :female, :geek             # => true
+brandon.all_of?  :older_than_18?, :male?, :me?, :geek? # => true
+brandon.none_of? :younger_than_18?, :female?           # => true
+brandon.any_of?  :male?, :female?, :geek?              # => true
 ```
 
 Maybe boolean comparisons aren't your cup of tea. Izzy has you covered my friend:
