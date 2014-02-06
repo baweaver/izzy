@@ -40,9 +40,9 @@ brandon = Person.new('brandon', 23, 'm')
 
 ...and do some comparisons!
 ```ruby
-brandon.all_of?  :older_than_18, :male, :me, :geek # => true
-brandon.none_of? :younger_than_18, :female         # => true
-brandon.any_of?  :male, :female, :geek             # => true
+brandon.all_of?  :older_than_18?, :male?, :me?, :geek? # => true
+brandon.none_of? :younger_than_18?, :female?           # => true
+brandon.any_of?  :male?, :female?, :geek?              # => true
 ```
 
 Maybe boolean comparisons aren't your cup of tea. Izzy has you covered my friend:
@@ -60,19 +60,21 @@ brandon.matches_all? name: String, age: Integer
 Why stop there? Need a bit more power? We have Lambdas for that!
 
 ```ruby
-brandon.matches_all? name: -> n { n.length > 3 }, age: -> a { a.odd? } # => true
+longer_than_3 = -> n { n.length > 3 }
+is_odd = -> a { a.odd? }
+
+brandon.matches_all? name: longer_than_3, age: is_odd # => true
 ```
 
 ....or let's push it further for some interesting results:
 
 ```ruby
+longer_than_5 = -> n { n.length > 5 }
+greater_than_20 = -> a { a > 20 }
+
 brandon.matches_all?(
-  name: [
-    /br/, /an/, -> n { n.length > 5 }
-  ],
-  age: [
-    (20..30), -> a { a > 20 }
-  ]
+  name: [/br/, /an/, longer_than_5],
+  age: [(20..30), greater_than_20]
 )
 
 # => true
