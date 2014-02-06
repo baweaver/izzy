@@ -4,10 +4,9 @@
 [![Code Climate](https://codeclimate.com/github/baweaver/izzy.png)](https://codeclimate.com/github/baweaver/izzy)
 [![Coverage Status](https://coveralls.io/repos/baweaver/izzy/badge.png?branch=master)](https://coveralls.io/r/baweaver/izzy?branch=master)
 
-Monkey patch to object to make for a nicer time of conditionals! Just install the gem and you're ready to go!
+## Izzy Module
 
-
-Let's take our class, Person:
+To demo Izzy, let's take our class, Person:
 
 ```ruby
 class Person
@@ -20,29 +19,17 @@ class Person
     @sex  = sex
   end
 
-  def older_than_18?
-    @age > 18
-  end
+  def older_than_18?; @age > 18 end
 
-  def younger_than_18?
-    @age < 18
-  end
+  def younger_than_18?; @age < 18 end
 
-  def male?
-    @sex == 'm'
-  end
+  def male?; @sex == 'm'; end
 
-  def female?
-    @sex == 'f'
-  end
+  def female?; @sex == 'f' end
 
-  def me?
-    @name == 'brandon' && @sex == 'm'
-  end
+  def me?; @name == 'brandon' && @sex == 'm' end
 
-  def geek?
-    @name == 'brandon'
-  end
+  def geek?; @name == 'brandon' end
 end
 ```
 
@@ -93,6 +80,19 @@ brandon.matches_all?(
 ```
 
 Simple to the point, no more mess of && or || checks for the same object. All you have to do is include Izzy in your object and you're ready to go!
+
+## Izzy Array Module
+
+But wait! There's more! IzzyArray allows you a few more tricks on top of that!
+```ruby
+class Array; include IzzyArray end
+
+[0,0,0].all_are :zero?       # => true
+[0,nil,'foo'].any_are :zero? # => true
+[0,0,0].none_are :nil?       # => true
+```
+
+Combine with rails :present?, :empty?, and various other methods and you have some interesting results! This one will get some more power with experimentation.
 
 ## Installation
 

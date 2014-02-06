@@ -39,3 +39,23 @@ module Izzy
     }
   end
 end
+
+module IzzyArray
+  def all_are(m)
+    self.all?(&object_block(m))
+  end
+
+  def any_are(m)
+    self.any?(&object_block(m))
+  end
+
+  def none_are(m)
+    self.none?(&object_block(m))
+  end
+
+  private
+
+  def object_block(m)
+    -> o { o.respond_to?(m) && o.send(m) }
+  end
+end

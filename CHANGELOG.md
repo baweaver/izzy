@@ -36,3 +36,12 @@ Methods changed:
 * matches_any?
 * matches_none?
 * [private] matcher_check
+
+## v 3.1.0 - Multi Object Matchers via Array
+
+Added a module to be mixed into Array, allowing for encapsulation of function evaluation on all objects in an Array.
+
+Methods added:
+* all_are
+* any_are
+* none_are
