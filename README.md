@@ -6,17 +6,8 @@
 
 ## Izzy Module
 
-To demo Izzy, let's take our class, Person:
+To demo Izzy, let's make a Person:
 
-```ruby
-class Person
-  include Izzy # Make sure to include Izzy!
-  attr_reader :name, :age, :sex
-  # ...
-end
-```
-
-So we make our person:
 ```ruby
 brandon = Person.new('brandon', 23, 'm')
 ```
@@ -29,17 +20,17 @@ brandon.matches_all?  name: /^br/, age: (20..30) # => true
 brandon.matches_any?  name: /br$/, age: (20..30) # => true
 brandon.matches_none? name: /br&/, age: (30..40) # => true
 ```
-Izzy compares on === much like a case statement, allowing you to regex and range away! You can even do type checks while you're at it.
 
 #### Type Checking
 
+Perhaps you want to type check:
 ```ruby
 brandon.matches_all? name: String, age: Integer
 ```
 
 #### Lambdas
 
-Why stop there? Need a bit more power? We have Lambdas for that!
+Need a bit more power? We have Lambdas for that!
 
 ```ruby
 longer_than_3 = -> n { n.length > 3 }
@@ -74,12 +65,9 @@ brandon.none_of? :younger_than_18?, :female?           # => true
 brandon.any_of?  :male?, :female?, :geek?              # => true
 ```
 
-
-Simple to the point, no more mess of && or || checks for the same object. All you have to do is include Izzy in your object and you're ready to go!
-
 ## Izzy Array Module
 
-But wait! There's more! IzzyArray allows you a few more tricks on top of that!
+IzzyArray allows you a few more tricks on top of that!
 ```ruby
 class Array; include IzzyArray end
 
