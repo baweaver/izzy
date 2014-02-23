@@ -96,6 +96,61 @@ class Array; include IzzyArray end
 
 Combine with rails :present?, :empty?, and various other methods and you have some interesting results! This one will get some more power with experimentation.
 
+## Izzy Enumerable
+
+Let's get ourselves a collection to use:
+```ruby
+class Object; include Izzy end
+
+brandon = Person.new('brandon', 23, 'm')
+john    = Person.new('john',    42, 'm')
+jill    = Person.new('jill',    31, 'f')
+alice   = Person.new('alice',   50, 'f')
+zeke    = Person.new('zeke',    18, 'm')
+
+people = [brandon, john, jill, alice, zeke]
+```
+
+### Select Where
+
+Select all objects where params match:
+```ruby
+people.select_where name: /^j/
+# => [john, jill]
+
+people.select_where(
+  age: [
+    (20..35),
+    -> a { a.odd? }
+  ]
+)
+# => [brandon]
+```
+
+### Reject Where
+
+Reject all objects where params match:
+```ruby
+people.reject_where name: /^j/
+# => [brandon, alice, zeke]
+
+people.reject_where(
+  age: [
+    (20..35),
+    -> a { a.odd? }
+  ]
+)
+# => [john, jill, alice, zeke]
+```
+
+### Find Where
+
+Finds the first object where params match:
+```ruby
+people.find_where name: /^j/, gender: 'm'
+# => john
+```
+
 ## Installation
 
 Add this line to your application's Gemfile:

@@ -1,6 +1,9 @@
 require 'izzy/version'
 
 module Izzy
+
+  # Boolean Predicate
+
   def all_of?(*methods)
     methods.all? &method_check
   end
@@ -12,6 +15,8 @@ module Izzy
   def none_of?(*methods)
     methods.none? &method_check
   end
+
+  # Matchers
 
   def matches_all?(matchers = {})
     matchers.all? &matcher_check(:all?)
@@ -25,32 +30,46 @@ module Izzy
     matchers.none? &matcher_check(:any?)
   end
 
+  # Enumerable Matchers
+
+  def select_where(matchers = {})
+    self.select { |s| s.matches_all? matchers }
+  end
+
+  def reject_where(matchers = {})
+    self.reject { |s| s.matches_all? matchers }
+  end
+
+  def find_where(matchers = {})
+    self.find { |s| s.matches_all? matchers }
+  end
+
   private
 
   def method_check
-    -> m { self.respond_to?(m) && self.send(m) }
+    -> m { self.send(m) }
   end
 
   def matcher_check(type = :all?)
     -> matcher { 
       m, val = *matcher
       values = val.is_a?(Array) ? val : Array[val]
-      values.send(type) { |v| self.respond_to?(m) && v === self.send(m) }
+      values.send(type) { |v| v === self.send(m) }
     }
   end
 end
 
 module IzzyArray
   def all_are(m)
-    self.all?(&object_block(m))
+    self.all? &object_block(m)
   end
 
   def any_are(m)
-    self.any?(&object_block(m))
+    self.any? &object_block(m)
   end
 
   def none_are(m)
-    self.none?(&object_block(m))
+    self.none? &object_block(m)
   end
 
   private

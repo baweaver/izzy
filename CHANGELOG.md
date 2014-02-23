@@ -45,3 +45,12 @@ Methods added:
 * all_are
 * any_are
 * none_are
+
+## v 3.2.0 - Merge QEnumerable
+
+Merged the QEnumerable gem into Izzy because of similarities. Removed respond_to? on checks (not including arrays) in order to skim down the time.
+
+Methods added:
+* select_where
+* reject_where
+* find_where
