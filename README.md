@@ -1,4 +1,10 @@
-# Izzy
+# Izzy (DEPRECATED)
+
+Izzy has been deprecated in favor of Qo: https://github.com/baweaver/qo
+
+Qo achieves much of the same functionality and more without the need to monkeypatch, and is in many ways the spiritual successor to Izzy. Four years makes a lot of difference!
+
+----------------------
 
 [![Build Status](https://travis-ci.org/baweaver/izzy.png?branch=master)](https://travis-ci.org/baweaver/izzy)
 [![Code Climate](https://codeclimate.com/github/baweaver/izzy.png)](https://codeclimate.com/github/baweaver/izzy)
